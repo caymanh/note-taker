@@ -3,6 +3,8 @@
 // The db holds information on the notes taken.
 
 const notesData = require('../../../db/db.json');
+const uniqid = require('uniqid');
+const fs = require('fs');
 
 // ROUTING
 
