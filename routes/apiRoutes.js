@@ -9,17 +9,30 @@ const fs = require("fs");
 let notesArr = [];
 
 module.exports = (app) => {
+  //Function to read file
+  const readFile = () => {
+    fs.readFile("./db/db.json", "utf8", (err, data) => {
+      if (err) throw err;
+      notesArr = JSON.parse(data);
+      return notesArr;
+    });
+  };
+
+  //Function to write file
+  const writeFile = () => {
+    fs.writeFile("db/db.json", JSON.stringify(notesArr), (err) => {
+      if (err) throw err;
+      return true;
+    });
+  };
   // API GET Requests
   // Below code handles when users "visit" a page.
   // (ex: localhost:PORT/api/admin... they are shown a JSON of the note)
   // ---------------------------------------------------------------------------
 
   app.get("/api/notes", (req, res) => {
-    fs.readFile("./db/db.json", "utf8", (err, data) => {
-      if (err) throw err;
-      notesArr = JSON.parse(data);
-      res.json(notesArr);
-    });
+    readFile();
+    res.json(notesArr);
   });
 
   // API POST Requests
@@ -34,11 +47,11 @@ module.exports = (app) => {
     const newNote = req.body;
     newNote.id = uniqid();
     notesArr.push(newNote);
-    fs.writeFile("db/db.json", JSON.stringify(notesArr), (err) => {
-      if (err) throw err;
-      return true;
-    });
+    writeFile();
     res.json(newNote);
     return console.log(`Added new note: ${newNote.title}`);
   });
 };
+
+//API DELETE Requests
+// app.delete("/api/notes/:id", (req, res) => {});
