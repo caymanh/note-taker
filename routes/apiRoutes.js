@@ -14,7 +14,7 @@ module.exports = (app) => {
   // ---------------------------------------------------------------------------
 
   app.get("/api/notes", (req, res) => {
-    fs.readFile("../../../db/db.json", "utf8", (err, data) => {
+    fs.readFile("./db/db.json", "utf8", (err, data) => {
       if (err) throw err;
       const notesArr = JSON.parse(data);
       res.json(notesArr);
