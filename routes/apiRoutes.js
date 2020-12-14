@@ -2,7 +2,6 @@
 // We are linking our routes to the "db"
 // The db holds information on the notes taken.
 
-const notesData = require("../../../db/db.json");
 const uniqid = require("uniqid");
 const fs = require("fs");
 
@@ -17,7 +16,7 @@ module.exports = (app) => {
   app.get("/api/notes", (req, res) => {
     fs.readFile("../../../db/db.json", "utf8", (err, data) => {
       if (err) throw err;
-      let notesArr = JSON.parse(data);
+      const notesArr = JSON.parse(data);
       res.json(notesArr);
     });
   });
@@ -30,16 +29,25 @@ module.exports = (app) => {
   // Then the server saves the data to the tableData array)
   // ---------------------------------------------------------------------------
 
-  app.post("/api/notes", (req, res) => {
-    // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
-    // It will do this by sending out the value "true" have a table
-    // req.body is available since we're using the body parsing middleware
-    if (tableData.length < 5) {
-      tableData.push(req.body);
-      res.json(true);
-    } else {
-      waitListData.push(req.body);
-      res.json(false);
-    }
-  });
+//   app.post("/api/notes", (req, res) => {
+//     // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
+//     // It will do this by sending out the value "true" have a table
+//     // req.body is available since we're using the body parsing middleware
+//     if (tableData.length < 5) {
+//       tableData.push(req.body);
+//       res.json(true);
+//     } else {
+//       waitListData.push(req.body);
+//       res.json(false);
+//     }
+//   });
+
+//   app.post("/api/notes", (req, res) => {
+//     uniqid();
+//     const newNote = req.body;
+//     notesArr.push(newNote);
+//     res.json(newNote);
+//   });
+
+
 };
