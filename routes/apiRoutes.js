@@ -31,8 +31,8 @@ module.exports = (app) => {
   // ---------------------------------------------------------------------------
 
   app.post("/api/notes", (req, res) => {
-    uniqid();
     const newNote = req.body;
+    newNote.id = uniqid();
     notesArr.push(newNote);
     fs.writeFile("db/db.json", JSON.stringify(notesArr), (err) => {
       if (err) throw err;
