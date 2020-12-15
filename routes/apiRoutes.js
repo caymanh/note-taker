@@ -4,6 +4,7 @@
 
 const uniqid = require("uniqid");
 const fs = require("fs");
+const path = require("path");
 
 // ROUTING
 let notesArr = [];
@@ -48,7 +49,6 @@ module.exports = (app) => {
     notesArr.push(newNote);
     writeFile();
     res.json(newNote);
-    return console.log(`Added new note: ${newNote.title}`);
   });
 
   //API DELETE Requests
