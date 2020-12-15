@@ -11,14 +11,17 @@ let notesArr = [];
 module.exports = (app) => {
   //Function to read file
   const readFile = () => {
-    const data = fs.readFileSync("./db/db.json", "utf8");
+    const data = fs.readFileSync(path.join(__dirname, "../db/db.json"), "utf8");
     notesArr = JSON.parse(data);
     return notesArr;
   };
 
   //Function to write file
   const writeFile = () => {
-    fs.writeFileSync("db/db.json", JSON.stringify(notesArr));
+    fs.writeFileSync(
+      path.join(__dirname, "../db/db.json"),
+      JSON.stringify(notesArr)
+    );
   };
 
   // API GET Requests
